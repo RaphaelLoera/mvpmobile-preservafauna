@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  produtor
+  tecnico
+  admin
+}
+
+enum Risk {
+  Alto
+  Medio @map("Médio")
+  Baixo
+}
+
+model User {
+  id           String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name         String
+  email        String     @unique
+  passwordHash String     @map("password_hash")
+  role         UserRole   @default(produtor)
+  createdAt    DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
+  incidents    Incident[]
+
+  @@map("users")
+}
+
+model Species {
+  id         String  @id
+  name       String
+  scientific String
+  risk       Risk
+  habitat    String?
+  behavior   String?
+  diet       String?
+  protected  Boolean @default(true)
+
+  @@map("species")
+}
+
+model Incident {
+  id         String   @id @db.Uuid
+  userId     String   @map("user_id") @db.Uuid
+  user       User     @relation(fields: [userId], references: [id])
+  predator   String
+  animal     String
+  quantity   Int
+  impact     String
+  notes      String?
+  occurredAt DateTime @map("occurred_at") @db.Timestamptz(6)
+  locality   String?
+  geom       Unsupported("geography(Point, 4326)")
+  photo      String?
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@index([occurredAt(sort: Desc)])
+  @@map("incidents")
+}
