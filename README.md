@@ -7,7 +7,7 @@ voltada à convivência segura com felinos e outros animais silvestres.
 
 | Integrantes
 
-| Raphael Loera 
+| Raphael Correia Soares Loera 
 | VALDELY DA COSTA FRANCISCO JUNIOR
 
 
