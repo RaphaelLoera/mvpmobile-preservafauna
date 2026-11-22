@@ -6,7 +6,7 @@ voltada à convivência segura com felinos e outros animais silvestres.
 ## Dados dos Integrantes da Equipe
 
 | Integrantes
-|---|---|
+
 | Raphael Loera 
 | VALDELY DA COSTA FRANCISCO JUNIOR
 
